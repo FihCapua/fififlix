@@ -1,7 +1,12 @@
+const MovieRepository = require('../../repositories/MovieRepository');
+
 class MovieController {
-  index(req, res) {
+  async index(req, res) {
     // Lista todos os registros
-    res.send('Send from movie controller');
+
+    const movies = await MovieRepository.findAll();
+
+    res.json(movies);
   }
 
   show() {

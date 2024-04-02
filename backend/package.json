@@ -8,7 +8,8 @@
     "start": "nodemon src/index.js"
   },
   "dependencies": {
-    "express": "^4.19.2"
+    "express": "^4.19.2",
+    "uuidv4": "^6.2.13"
   },
   "devDependencies": {
     "eslint": "^8.57.0",
