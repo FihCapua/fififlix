@@ -9,8 +9,17 @@ class MovieController {
     res.json(movies);
   }
 
-  show() {
+  async show(req, res) {
     // Obtem UM registro
+
+    const { id } = req.params;
+    const movie = await MovieRepository.findById(id);
+
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+
+    res.json(movie);
   }
 
   store() {
@@ -21,8 +30,18 @@ class MovieController {
     // Atualiza (edita) um registro
   }
 
-  delete() {
+  async delete(req, res) {
     // Deleta um registro
+
+    const { id } = req.params;
+    const movie = await MovieRepository.findById(id);
+
+    if (!movie) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+
+    await MovieRepository.delete(id);
+    res.sendStatus(204);
   }
 }
 
