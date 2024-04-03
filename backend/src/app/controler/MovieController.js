@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 const MovieRepository = require('../../repositories/MovieRepository');
 
 class MovieController {
@@ -22,8 +23,28 @@ class MovieController {
     res.json(movie);
   }
 
-  store() {
+  async store(req, res) {
     // Cria um novo registro
+
+    const {
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+    } = req.body;
+
+    if (!title) {
+      return res.status(400).json({ error: 'Title is required' });
+    }
+
+    const movieExists = await MovieRepository.findByTitle(title);
+
+    if (movieExists) {
+      return res.status(400).json({ error: 'Movie already exists' });
+    }
+
+    const movie = await MovieRepository.create({
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+    });
+
+    res.json(movie);
   }
 
   update() {
