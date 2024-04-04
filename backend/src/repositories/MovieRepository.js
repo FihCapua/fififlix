@@ -98,6 +98,45 @@ class MovieRepository {
     });
   }
 
+  update(id, {
+    category_id,
+    title,
+    country_of_origin,
+    year,
+    director,
+    movie_scriptwriter,
+    movie_starring,
+    genre,
+    image_url,
+    score,
+    film_review,
+    stars,
+    comments,
+  }) {
+    return new Promise((resolve) => {
+      const updatedMovie = {
+        id,
+        category_id,
+        title,
+        country_of_origin,
+        year,
+        director,
+        movie_scriptwriter,
+        movie_starring,
+        genre,
+        image_url,
+        score,
+        film_review,
+        stars,
+        comments,
+      };
+
+      movies = movies.map((movie) => (movie.id === id ? updatedMovie : movie));
+
+      resolve(updatedMovie);
+    });
+  }
+
   delete(id) {
     return new Promise((resolve) => {
       movies = movies.filter((movie) => movie.id !== id);

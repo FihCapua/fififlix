@@ -13,5 +13,6 @@ router.get('/movies', MovieController.index);
 router.get('/movies/:id', MovieController.show);
 router.delete('/movies/:id', MovieController.delete);
 router.post('/movies', MovieController.store);
+router.put('/movies/:id', MovieController.update);
 
 module.exports = router;

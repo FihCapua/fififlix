@@ -1,4 +1,5 @@
 /* eslint-disable max-len */
+const { response } = require('express');
 const MovieRepository = require('../../repositories/MovieRepository');
 
 class MovieController {
@@ -47,8 +48,29 @@ class MovieController {
     res.json(movie);
   }
 
-  update() {
+  async update(req, res) {
     // Atualiza (edita) um registro
+
+    const { id } = req.params;
+    const {
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+    } = req.body;
+
+    const movieExists = await MovieRepository.findById(id);
+
+    if (!movieExists) {
+      return res.status(404).json({ error: 'Movie not found' });
+    }
+
+    if (!title) {
+      return res.status(400).json({ error: 'Title is required' });
+    }
+
+    const movieUpdate = await MovieRepository.update(id, {
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+    });
+
+    res.json(movieUpdate);
   }
 
   async delete(req, res) {
