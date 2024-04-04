@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-const { response } = require('express');
 const MovieRepository = require('../../repositories/MovieRepository');
 
 class MovieController {
