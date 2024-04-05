@@ -9,8 +9,7 @@
   },
   "dependencies": {
     "express": "^4.19.2",
-    "pg": "^8.11.5",
-    "uuid": "^9.0.1"
+    "pg": "^8.11.5"
   },
   "devDependencies": {
     "eslint": "^8.57.0",

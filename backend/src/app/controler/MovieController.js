@@ -77,11 +77,6 @@ class MovieController {
     // Deleta um registro
 
     const { id } = req.params;
-    const movie = await MovieRepository.findById(id);
-
-    if (!movie) {
-      return res.status(404).json({ error: 'Movie not found' });
-    }
 
     await MovieRepository.delete(id);
     res.sendStatus(204);
