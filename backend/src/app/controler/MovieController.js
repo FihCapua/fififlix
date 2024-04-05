@@ -28,7 +28,7 @@ class MovieController {
     // Cria um novo registro
 
     const {
-      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched,
     } = req.body;
 
     if (!title) {
@@ -42,7 +42,7 @@ class MovieController {
     }
 
     const movie = await MovieRepository.create({
-      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched,
     });
 
     res.json(movie);
@@ -53,7 +53,7 @@ class MovieController {
 
     const { id } = req.params;
     const {
-      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched,
     } = req.body;
 
     const movieExists = await MovieRepository.findById(id);
@@ -67,7 +67,7 @@ class MovieController {
     }
 
     const movieUpdate = await MovieRepository.update(id, {
-      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments,
+      category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched,
     });
 
     res.json(movieUpdate);

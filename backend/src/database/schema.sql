@@ -22,5 +22,6 @@ CREATE TABLE IF NOT EXISTS movies (
     film_review VARCHAR,
     stars VARCHAR,
     comments VARCHAR,
+    watched VARCHAR,
     FOREIGN KEY (category_id) REFERENCES categories(id)
 );

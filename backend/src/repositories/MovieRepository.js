@@ -72,17 +72,18 @@ class MovieRepository {
     film_review,
     stars,
     comments,
+    watched,
   }) {
     const [row] = await database.query(`
-        INSERT INTO movies(category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments)
-        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        INSERT INTO movies(category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14)
         RETURNING *
-    `, [category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments]);
+    `, [category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched]);
 
     return row;
   }
 
-  update(id, {
+  async update(id, {
     category_id,
     title,
     country_of_origin,
@@ -96,29 +97,16 @@ class MovieRepository {
     film_review,
     stars,
     comments,
+    watched,
   }) {
-    return new Promise((resolve) => {
-      const updatedMovie = {
-        id,
-        category_id,
-        title,
-        country_of_origin,
-        year,
-        director,
-        movie_scriptwriter,
-        movie_starring,
-        genre,
-        image_url,
-        score,
-        film_review,
-        stars,
-        comments,
-      };
+    const [row] = await database.query(`
+        UPDATE movies
+        SET category_id = $1, title = $2, country_of_origin = $3, year = $4, director = $5, movie_scriptwriter = $6, movie_starring = $7, genre = $8, image_url = $9, score = $10, film_review = $11, stars = $12, comments = $13, watched = $14
+        WHERE id = $15
+        RETURNING *
+    `, [category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched, id]);
 
-      movies = movies.map((movie) => (movie.id === id ? updatedMovie : movie));
-
-      resolve(updatedMovie);
-    });
+    return row;
   }
 
   delete(id) {
