@@ -4,8 +4,9 @@ const MovieRepository = require('../../repositories/MovieRepository');
 class MovieController {
   async index(req, res) {
     // Lista todos os registros
+    const { orderBy } = req.query;
 
-    const movies = await MovieRepository.findAll();
+    const movies = await MovieRepository.findAll(orderBy);
 
     res.json(movies);
   }

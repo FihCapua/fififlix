@@ -39,8 +39,9 @@ let movies = [
 ];
 
 class MovieRepository {
-  async findAll() {
-    const rows = await database.query('SELECT * FROM movies');
+  async findAll(orderyBy = 'ASC') {
+    const direction = orderyBy.toUpperCase() === 'ASC' ? 'ASC' : 'DESC';
+    const rows = await database.query(`SELECT * FROM movies ORDER BY title ${direction}`);
 
     return rows;
   }
