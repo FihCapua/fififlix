@@ -1,6 +1,8 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
 const { v4: uuid } = require('uuid');
 
+const database = require('../database');
+
 let movies = [
   {
     id: uuid(),
@@ -59,7 +61,7 @@ class MovieRepository {
     });
   }
 
-  create({
+  async create({
     category_id,
     title,
     country_of_origin,
@@ -74,28 +76,13 @@ class MovieRepository {
     stars,
     comments,
   }) {
-    return new Promise((resolve) => {
-      const newMovie = {
-        id: uuid(),
-        category_id,
-        title,
-        country_of_origin,
-        year,
-        director,
-        movie_scriptwriter,
-        movie_starring,
-        genre,
-        image_url,
-        score,
-        film_review,
-        stars,
-        comments,
-      };
+    const [row] = await database.query(`
+        INSERT INTO movies(category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments)
+        VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+        RETURNING *
+    `, [category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments]);
 
-      movies.push(newMovie);
-
-      resolve(newMovie);
-    });
+    return row;
   }
 
   update(id, {
