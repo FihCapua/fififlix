@@ -39,26 +39,22 @@ let movies = [
 ];
 
 class MovieRepository {
-  findAll() {
-    return new Promise((resolve) => {
-      resolve(movies);
-    });
+  async findAll() {
+    const rows = await database.query('SELECT * FROM movies');
+
+    return rows;
   }
 
-  findById(id) {
-    return new Promise((resolve) => {
-      resolve(
-        movies.find((movie) => movie.id === id),
-      );
-    });
+  async findById(id) {
+    const [row] = await database.query('SELECT * FROM movies WHERE id = $1', [id]);
+
+    return row;
   }
 
-  findByTitle(title) {
-    return new Promise((resolve) => {
-      resolve(
-        movies.find((movie) => movie.title === title),
-      );
-    });
+  async findByTitle(title) {
+    const [row] = await database.query('SELECT * FROM movies WHERE title = $1', [title]);
+
+    return row;
   }
 
   async create({
