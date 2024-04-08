@@ -20,10 +20,10 @@ export const InputSearchContainer = styled.div`
 
     input {
         width: 70%;
-        border: 1px solid ${({ theme }) => theme.border};
+        border: 1px solid ${({ theme }) => theme.colors.border};
         border-radius: 25px;
         height: 50px;
         padding: 10px;
-        color: ${({ theme }) => theme.white};
+        color: ${({ theme }) => theme.colors.white};
     }
 `;

@@ -5,6 +5,7 @@ import defaultTheme from "../assets/styles/themes/default.ts";
 
 import { Container } from "./styles.ts";
 import { Header } from "./components/Header/index.tsx";
+import { MoviesList } from "./components/MoviesList/index.tsx";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Container>
 
         <Header />
+        <MoviesList />
       </Container>
     </ThemeProvider>
   );
