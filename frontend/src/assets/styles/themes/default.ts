@@ -1,3 +1,6 @@
 export default {
-  backgroundColor: "#F6F5FC",
+  backgroundColor: "#141414",
+  white: "#FFFFFF",
+  border: "#5B5B5B",
+  primaryText: "#F6F5FC",
 };
