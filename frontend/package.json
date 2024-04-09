@@ -9,11 +9,12 @@
     "preview": "vite preview",
     "lint": "eslint src --max-warnings=0",
     "lint-fix": "eslint src --max-warnings=0 --fix"
-  },
-  "dependencies": {
+},
+"dependencies": {
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "styled-components": "^6.1.8"
+    "styled-components": "^6.1.8",
+    "react-multi-carousel": "^2.8.5"
   },
   "lint-staged": {
     "src/**/*": [

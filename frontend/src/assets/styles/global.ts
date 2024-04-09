@@ -12,6 +12,10 @@ export default createGlobalStyle`
     body {
         font-size: 18px;
         color: ${({ theme }) => theme.colors.primaryText};
+
+        span {
+            font-size: 10px;
+        }
     }
 
     button {
