@@ -1,5 +1,21 @@
 import styled from "styled-components";
 
+export const InputSearchContainer = styled.div`
+    margin-top: 48px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    input {
+        width: 70%;
+        border: 1px solid ${({ theme }) => theme.colors.border};
+        border-radius: 25px;
+        height: 50px;
+        padding: 10px;
+        color: ${({ theme }) => theme.colors.white};
+    }
+`;
+
 export const Container = styled.div`
     width: 70%;
     margin: 0 auto;
