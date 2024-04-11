@@ -1,7 +1,9 @@
+import { PageHeader } from "../../app/components/PageHeader";
+
 export default function NewMovie() {
   return (
     <div>
-      <h1>New Movie</h1>
+      <PageHeader title="Cadastrar novo filme" />
     </div>
   );
 }

@@ -7,8 +7,8 @@ export default function Routes() {
   return (
     <Switch>
       <Route path="/" component={Home} exact />
-      <Route path="/new" component={NewMovie} />
-      <Route path="/edit/:id" component={EditMovie} />
+      <Route path="/new-movie" component={NewMovie} />
+      <Route path="/edit-movie/:id" component={EditMovie} />
     </Switch>
   );
 }

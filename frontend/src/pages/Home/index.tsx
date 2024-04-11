@@ -99,7 +99,7 @@ export default function Home() {
       <Container>
         <HeaderMovies>
           <span>3 filmes</span>
-          <Link to="/new">Cadastrar novo filme</Link>
+          <Link to="/new-movie">Cadastrar novo filme</Link>
         </HeaderMovies>
 
         <ListMovies>
@@ -123,8 +123,8 @@ export default function Home() {
               centerMode
               swipeable
             >
-              {list.map((movie) => (
-                <CarouselCardContainer>
+              {list.map((movie, index) => (
+                <CarouselCardContainer key={index}>
                   <CarouselCard>
                     <h4>{movie.title}</h4>
                     <img src={movie.image_url} alt={movie.title} />
