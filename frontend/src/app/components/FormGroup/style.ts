@@ -8,6 +8,13 @@ export const Container = styled.div`
         margin: 10px 0;
     }
 
+    span {
+        display: flex;
+        color: ${({ theme }) => theme.colors.primary.light};
+        justify-content: center;
+        margin-top: 10px;
+    }
+
     .checkbox-form {
         width: 35%;
         display: grid;

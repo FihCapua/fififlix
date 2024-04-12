@@ -6,8 +6,8 @@ import { ButtonContainer, Form } from "./style";
 export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
   return (
     <Form>
-      <FormGroup>
-        <Input type="text" placeholder="Título do filme" />
+      <FormGroup error="O campo título do filme é obrigatório">
+        <Input type="text" placeholder="Título do filme" error />
       </FormGroup>
 
       <FormGroup>
