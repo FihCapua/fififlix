@@ -17,6 +17,7 @@ import eyeOff from "../../assets/images/icons/eye-off.svg";
 import eyeOpen from "../../assets/images/icons/eye-open.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/trash.svg";
+import { Loader } from "../../app/components/Loader";
 
 const responsive = {
   desktop: {
@@ -93,6 +94,7 @@ const list = [
 export default function Home() {
   return (
     <>
+      <Loader />
       <InputSearchContainer>
         <input type="text" placeholder="Pesquisar título" />
       </InputSearchContainer>
