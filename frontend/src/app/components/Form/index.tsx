@@ -1,7 +1,7 @@
 import { Button } from "../Button";
 import { FormGroup } from "../FormGroup";
 import { Input } from "../Input";
-import { Form } from "./style";
+import { ButtonContainer, Form } from "./style";
 
 export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
   return (
@@ -65,7 +65,9 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
         <Input type="text" placeholder="Comentários" className="input-comments" />
       </FormGroup>
 
-      <Button type="submit" className="btn-registry">{buttonLabel}</Button>
+      <ButtonContainer>
+        <Button type="submit" className="btn-registry">{buttonLabel}</Button>
+      </ButtonContainer>
     </Form>
   );
 }

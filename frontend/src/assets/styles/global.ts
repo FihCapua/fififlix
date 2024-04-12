@@ -6,12 +6,12 @@ export default createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         font-family: 'Sora', sans-serif;
-        background: ${({ theme }) => theme.colors.backgroundColor};
     }
 
     body {
         font-size: 18px;
         color: ${({ theme }) => theme.colors.primaryText};
+        background: ${({ theme }) => theme.colors.backgroundColor};
 
         span {
             font-size: 10px;

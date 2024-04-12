@@ -1,10 +1,14 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
-export const Button = styled.button`
-    width: 100%;
+interface ButtonProps {
+    danger?: boolean;
+}
+
+export const Button = styled.button<ButtonProps>`
     max-width: 450px;
     height: 40px;
     margin: 0 auto 15px;
+    padding: 0 16px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -31,4 +35,14 @@ export const Button = styled.button`
         color: ${({ theme }) => theme.colors.primaryText};
         cursor: default;
     }
+
+    ${({ theme, danger }) => danger && css`
+        background: ${theme.colors.primary.main};
+        border: none;
+        color: ${theme.colors.primaryText};
+
+        &:hover {
+            background-color: ${theme.colors.primary.light};
+        }
+    `}
 `;
