@@ -184,7 +184,7 @@ export default function Home() {
                     </MovieComments>
 
                     <HoldMovies>
-                      <Link to="/">
+                      <Link to="/edit-movie/123">
                         <img src={edit} alt="editar" />
                       </Link>
 

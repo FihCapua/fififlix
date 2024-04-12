@@ -1,9 +1,12 @@
+import { MovieForm } from "../../app/components/Form";
 import { PageHeader } from "../../app/components/PageHeader";
 
 export default function EditMovie() {
   return (
-    <div>
+    <>
       <PageHeader title="Editar filme" />
-    </div>
+
+      <MovieForm buttonLabel="Editar filme" />
+    </>
   );
 }

@@ -39,6 +39,7 @@
         "import/no-unresolved": "off",
         "import/extensions": "off",
         "import/no-extraneous-dependencies": "off",
-        "max-len": "off"
+        "max-len": "off",
+        "react/require-default-props": "off"
     }
 }

@@ -1,9 +1,12 @@
+import { MovieForm } from "../../app/components/Form";
 import { PageHeader } from "../../app/components/PageHeader";
 
 export default function NewMovie() {
   return (
-    <div>
+    <>
       <PageHeader title="Cadastrar novo filme" />
-    </div>
+
+      <MovieForm buttonLabel="Cadastrar novo filme" />
+    </>
   );
 }

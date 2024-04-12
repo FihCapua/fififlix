@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const Container = styled.header`
-    margin: 0 45px;
+    margin: 0 0 24px 45px;
 
     a {
         text-decoration: none;
