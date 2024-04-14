@@ -27,12 +27,9 @@ export const Container = styled.div`
         }
 
         span {
+            color: ${({ theme }) => theme.colors.white};
             margin: 10px 15px;
             font-size: 12px;
         }
-    }
-
-    .input-comments {
-        margin-bottom: 35px;
     }
 `;
