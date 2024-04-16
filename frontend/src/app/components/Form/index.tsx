@@ -19,6 +19,7 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
     stars: 0,
     comments: "",
   });
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -29,11 +30,14 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
       ...prevState,
       [name]: type === "checkbox" ? checked : value,
     }));
+
+    if (name === "title") {
+      setIsFormValid(value.trim() !== "");
+    }
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log(formData);
   };
 
   return (
@@ -91,7 +95,7 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
       </FormGroup>
 
       <ButtonContainer>
-        <Button type="submit" className="btn-registry">{buttonLabel}</Button>
+        <Button type="submit" className="btn-registry" disabled={!isFormValid}>{buttonLabel}</Button>
       </ButtonContainer>
     </Form>
   );
