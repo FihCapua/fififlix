@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env PORT=3001 vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
     "lint": "eslint src --max-warnings=0",
@@ -30,6 +30,7 @@
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "@typescript-eslint/parser": "^7.5.0",
     "@vitejs/plugin-react": "^4.2.1",
+    "cross-env": "^7.0.3",
     "eslint": "^8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-plugin-import": "^2.29.1",
