@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
+import { useEffect, useState } from "react";
 import {
   Card,
   CarouselCard,
@@ -17,6 +18,7 @@ import eyeOff from "../../assets/images/icons/eye-off.svg";
 import eyeOpen from "../../assets/images/icons/eye-open.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/trash.svg";
+import { Movie } from "../../types";
 
 const responsive = {
   desktop: {
@@ -36,61 +38,22 @@ const responsive = {
   },
 };
 
-const list = [
-  {
-    id: "72c599ce-6b36-4ee6-a11f-8a5b6f42b3c5",
-    category_id: null,
-    title: "Interestelar",
-    country_of_origin: "Estados Unidos",
-    year: "2014",
-    director: "Christopher Nolan",
-    movie_scriptwriter: "Jonathan Nolan, Christopher Nolan",
-    movie_starring: "",
-    genre: "Drama/Fiction",
-    image_url: "https://br.web.img3.acsta.net/c_310_420/pictures/14/10/31/20/39/476171.jpg",
-    score: "9.2",
-    film_review: "Ótimo",
-    stars: "5",
-    comments: " Um dos meu filmes favoritos. Super trilha sonora ganhadora de um Oscar. História fabulosa e que algum tempo depois descobriram que não é nada fantasiosa e que faz todo o sentido segundo a física. Direção de fotografia fantástica.",
-    watched: "true",
-  },
-  {
-    id: "5cd3133c-36c3-4d55-854f-d534c03582ec",
-    category_id: null,
-    title: "The Godfather",
-    country_of_origin: "Estados Unidos",
-    year: "1972",
-    director: "Francis Ford Coppola",
-    movie_scriptwriter: "Mario Puzo",
-    movie_starring: "Marlon Brando, Al Pacino, James Caan",
-    genre: "Drama",
-    image_url: "https://m.media-amazon.com/images/M/MV5BM2MyNjYxNmUtYTAwNi00MTYxLWJmNWYtYzZlODY3ZTk3OTFlXkEyXkFqcGdeQXVyNzkwMjQ5NzM@._V1_.jpg",
-    score: "9.2",
-    film_review: "Ótimo",
-    stars: "5",
-    comments: "Um dos meus filmes preferidos (TOP 1), roteiro impecável.",
-    watched: "true",
-  },
-  {
-    id: "6d882407-cf10-449a-bc94-fdd99d49cc6c",
-    category_id: null,
-    title: "V for Vendetta",
-    country_of_origin: "Estados Unidos",
-    year: "2006",
-    director: "James McTeigue",
-    movie_scriptwriter: "Lilly Wachowski, Lana Wachowski",
-    movie_starring: "Natalie Portman, Hugo Weaving, Dustin Hoffman",
-    genre: "Drama/Fiction",
-    image_url: "https://br.web.img2.acsta.net/pictures/210/506/21050637_20131017235623573.jpg",
-    score: "8.4",
-    film_review: "Ótimo",
-    stars: "5",
-    comments: "Um dos meus filmes preferidos, roteiro impecável, fotografia perfeita, nem parece ser uma história de (herói) da DC que estamos acostumados.",
-    watched: "false",
-  },
-];
-
 export default function Home() {
+  const [movies, setMovies] = useState<Movie[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:3000/movies")
+      .then(async (response) => {
+        const json = await response.json();
+        setMovies(json);
+      })
+      .catch((error) => {
+        console.log("error", error);
+      });
+  }, []);
+
+  console.log(movies);
+
   return (
     <>
       <InputSearchContainer>
@@ -123,7 +86,7 @@ export default function Home() {
               centerMode
               swipeable
             >
-              {list.map((movie, index) => (
+              {movies.length > 0 && movies.map((movie, index) => (
                 <CarouselCardContainer key={index}>
                   <CarouselCard>
                     <h4>{movie.title}</h4>
