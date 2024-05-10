@@ -48,11 +48,9 @@ export default function Home() {
         setMovies(json);
       })
       .catch((error) => {
-        console.log("error", error);
+        throw new Error(error);
       });
   }, []);
-
-  console.log(movies);
 
   return (
     <>
@@ -61,7 +59,11 @@ export default function Home() {
       </InputSearchContainer>
       <Container>
         <HeaderMovies>
-          <span>3 filmes</span>
+          <span>
+            {movies.length}
+            {movies.length === 1 ? " filme" : " filmes"}
+            {" "}
+          </span>
           <Link to="/new-movie">Cadastrar novo filme</Link>
         </HeaderMovies>
 
@@ -147,7 +149,7 @@ export default function Home() {
                     </MovieComments>
 
                     <HoldMovies>
-                      <Link to="/edit-movie/123">
+                      <Link to={`/edit-movie/${movie.id}`}>
                         <img src={edit} alt="editar" />
                       </Link>
 
