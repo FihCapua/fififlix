@@ -16,7 +16,7 @@ export const InputSearchContainer = styled.div`
         border-radius: 25px;
         height: 50px;
         padding: 10px;
-        color: ${({ theme }) => theme.colors.white};
+        color: ${({ theme }) => theme.colors.backgroundColor};
     }
 `;
 

@@ -1,8 +1,8 @@
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import { useEffect, useState } from "react";
 import {
   Card,
   CarouselCard,
@@ -41,6 +41,7 @@ const responsive = {
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [orderBy, setOrderBy] = useState("asc");
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     fetch(`http://localhost:3000/movies?orderBy=${orderBy}`)
@@ -53,30 +54,41 @@ export default function Home() {
       });
   }, [orderBy]);
 
+  const filteredMovies = movies.filter((movie) => movie.title.toLowerCase().includes(searchTerm.toLowerCase()));
+
   const handleToggleOrderBy = () => setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
+
+  const handleChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value);
 
   return (
     <>
       <InputSearchContainer>
-        <input type="text" placeholder="Pesquisar título" />
+        <input
+          type="text"
+          placeholder="Pesquisar título"
+          value={searchTerm}
+          onChange={handleChangeSearchTerm}
+        />
       </InputSearchContainer>
       <Container>
         <HeaderMovies>
           <span>
-            {movies.length}
-            {movies.length === 1 ? " filme" : " filmes"}
+            {filteredMovies.length}
+            {filteredMovies.length === 1 ? " filme" : " filmes"}
             {" "}
           </span>
           <Link to="/new-movie">Cadastrar novo filme</Link>
         </HeaderMovies>
 
         <ListMovies>
-          <ListHeader orderBy={orderBy}>
-            <button type="button" onClick={handleToggleOrderBy}>
-              <span>Nome</span>
-              <img src={arrow} alt="seta" />
-            </button>
-          </ListHeader>
+          {filteredMovies.length > 0 && (
+            <ListHeader orderBy={orderBy}>
+              <button type="button" onClick={handleToggleOrderBy}>
+                <span>Nome</span>
+                <img src={arrow} alt="seta" />
+              </button>
+            </ListHeader>
+          )}
 
           <Card>
 
@@ -91,7 +103,7 @@ export default function Home() {
               centerMode
               swipeable
             >
-              {movies.length > 0 && movies.map((movie, index) => (
+              {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
                 <CarouselCardContainer key={index}>
                   <CarouselCard>
                     <h4>{movie.title}</h4>
