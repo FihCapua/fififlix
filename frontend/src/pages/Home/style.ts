@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+interface ListHeaderProps {
+    orderBy: string;
+  }
+
 export const InputSearchContainer = styled.div`
     margin-top: 48px;
     width: 100%;
@@ -16,7 +20,7 @@ export const InputSearchContainer = styled.div`
     }
 `;
 
-export const Container = styled.div`
+export const Container = styled.section`
     width: 70%;
     margin: 0 auto;
 `;
@@ -49,11 +53,12 @@ export const HeaderMovies = styled.div`
     }
 `;
 
-export const ListMovies = styled.div`
+export const ListMovies = styled.section`
     margin-top: 24px;
+`;
 
-    header {
-        button {
+export const ListHeader = styled.header<ListHeaderProps>`
+    button {
             background: transparent;
             border: none;
             display: flex;
@@ -63,14 +68,15 @@ export const ListMovies = styled.div`
                 margin-right: 8px;
                 color: ${({ theme }) => theme.colors.primaryText};
                 font-weight: bold;
+                font-size: 12px;
             }
 
             img {
                 width: 15px;
+                transform: ${({ orderBy }) => (orderBy === "asc" ? "rotate(0deg)" : "rotate(180deg)")};
+                transition: transform 0.2s ease-in;
             }
         }
-    }
-
 `;
 
 export const Card = styled.div`

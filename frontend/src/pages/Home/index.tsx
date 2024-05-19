@@ -7,7 +7,7 @@ import {
   Card,
   CarouselCard,
   CarouselCardContainer,
-  Container, HeaderMovies, HoldMovies, InputSearchContainer, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
+  Container, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
 } from "./style";
 
 import { starRating } from "../../utils/starRating";
@@ -40,9 +40,10 @@ const responsive = {
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
+  const [orderBy, setOrderBy] = useState("asc");
 
   useEffect(() => {
-    fetch("http://localhost:3000/movies")
+    fetch(`http://localhost:3000/movies?orderBy=${orderBy}`)
       .then(async (response) => {
         const json = await response.json();
         setMovies(json);
@@ -50,7 +51,9 @@ export default function Home() {
       .catch((error) => {
         throw new Error(error);
       });
-  }, []);
+  }, [orderBy]);
+
+  const handleToggleOrderBy = () => setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
 
   return (
     <>
@@ -68,12 +71,12 @@ export default function Home() {
         </HeaderMovies>
 
         <ListMovies>
-          <header>
-            <button type="button">
+          <ListHeader orderBy={orderBy}>
+            <button type="button" onClick={handleToggleOrderBy}>
               <span>Nome</span>
               <img src={arrow} alt="seta" />
             </button>
-          </header>
+          </ListHeader>
 
           <Card>
 
