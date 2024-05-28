@@ -18,6 +18,8 @@ import eyeOff from "../../assets/images/icons/eye-off.svg";
 import eyeOpen from "../../assets/images/icons/eye-open.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/trash.svg";
+import { Loader } from "../../app/components/Loader";
+
 import { Movie } from "../../types";
 
 const responsive = {
@@ -42,8 +44,11 @@ export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
+
     fetch(`http://localhost:3000/movies?orderBy=${orderBy}`)
       .then(async (response) => {
         const json = await response.json();
@@ -51,7 +56,8 @@ export default function Home() {
       })
       .catch((error) => {
         throw new Error(error);
-      });
+      })
+      .finally(() => setIsLoading(false));
   }, [orderBy]);
 
   const filteredMovies = useMemo(() => movies.filter((movie) => movie.title.toLowerCase().includes(searchTerm.toLowerCase())), [movies, searchTerm]);
@@ -62,6 +68,7 @@ export default function Home() {
 
   return (
     <>
+      <Loader isLoading={isLoading} />
       <InputSearchContainer>
         <input
           type="text"
