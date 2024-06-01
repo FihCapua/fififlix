@@ -47,17 +47,23 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    setIsLoading(true);
+    async function loadMovies() {
+      try {
+        const response = await fetch(
+          `http://localhost:3000/movies?orderBy=${orderBy}`,
+        );
 
-    fetch(`http://localhost:3000/movies?orderBy=${orderBy}`)
-      .then(async (response) => {
         const json = await response.json();
         setMovies(json);
-      })
-      .catch((error) => {
-        throw new Error(error);
-      })
-      .finally(() => setIsLoading(false));
+        setIsLoading(false);
+      } catch (error) {
+        throw new Error("Error loading movies");
+      } finally {
+        setIsLoading(false);
+      }
+    }
+
+    loadMovies();
   }, [orderBy]);
 
   const filteredMovies = useMemo(() => movies.filter((movie) => movie.title.toLowerCase().includes(searchTerm.toLowerCase())), [movies, searchTerm]);
