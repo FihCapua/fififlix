@@ -21,6 +21,7 @@ import trash from "../../assets/images/icons/trash.svg";
 import { Loader } from "../../app/components/Loader";
 
 import { Movie } from "../../types";
+import MoviesServices from "../../services/MoviesServices";
 
 const responsive = {
   desktop: {
@@ -49,13 +50,11 @@ export default function Home() {
   useEffect(() => {
     async function loadMovies() {
       try {
-        const response = await fetch(
-          `http://localhost:3000/movies?orderBy=${orderBy}`,
-        );
+        setIsLoading(true);
 
-        const json = await response.json();
-        setMovies(json);
-        setIsLoading(false);
+        const moviesList = await MoviesServices.listMovies(orderBy);
+
+        setMovies(moviesList);
       } catch (error) {
         throw new Error("Error loading movies");
       } finally {
