@@ -1,11 +1,15 @@
+import HttpClient from "./utils/HttpClient";
+
 // Singleton
 class MoviesServices {
-  async listMovies(orderBy: string = "asc") {
-    const response = await fetch(
-      `http://localhost:3000/movies?orderBy=${orderBy}`,
-    );
+  httpClient: HttpClient;
 
-    return response.json();
+  constructor() {
+    this.httpClient = new HttpClient("http://localhost:3000");
+  }
+
+  async listMovies(orderBy: string = "asc") {
+    return this.httpClient.get(`/movies?orderBy=${orderBy}`);
   }
 }
 
