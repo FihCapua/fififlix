@@ -45,7 +45,7 @@ class MovieController {
       category_id, title, country_of_origin, year, director, movie_scriptwriter, movie_starring, genre, image_url, score, film_review, stars, comments, watched,
     });
 
-    res.json(movie);
+    res.status(201).json(movie);
   }
 
   async update(req, res) {
