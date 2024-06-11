@@ -56,7 +56,7 @@ export default function Home() {
 
         setMovies(moviesList);
       } catch (error) {
-        throw new Error("Error loading movies");
+        console.error(error);
       } finally {
         setIsLoading(false);
       }

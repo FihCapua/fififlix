@@ -10,7 +10,11 @@ class HttpCLient {
   async get(path: string) {
     const response = await fetch(`${this.baseUrl}${path}`);
 
-    return response.json();
+    if (response.ok) {
+      return response.json();
+    }
+
+    throw new Error(`${response.status} - ${response.statusText}`);
   }
 }
 
