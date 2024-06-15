@@ -7,7 +7,7 @@ interface ContainerProps {
 export const Overlay = styled.div`
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(7px);
-    position: absolute;
+    position: fixed;
     width: 100%;
     height: 100%;
     top: 0;

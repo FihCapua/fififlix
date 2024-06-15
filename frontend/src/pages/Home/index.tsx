@@ -50,21 +50,22 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  useEffect(() => {
-    async function loadMovies() {
-      try {
-        setIsLoading(true);
+  async function loadMovies() {
+    try {
+      setIsLoading(true);
 
-        const moviesList = await MoviesServices.listMovies(orderBy);
+      const moviesList = await MoviesServices.listMovies(orderBy);
 
-        setMovies(moviesList);
-      } catch {
-        setHasError(true);
-      } finally {
-        setIsLoading(false);
-      }
+      setHasError(false);
+      setMovies(moviesList);
+    } catch {
+      setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
+  }
 
+  useEffect(() => {
     loadMovies();
   }, [orderBy]);
 
@@ -73,6 +74,8 @@ export default function Home() {
   const handleToggleOrderBy = () => setOrderBy((prevState) => (prevState === "asc" ? "desc" : "asc"));
 
   const handleChangeSearchTerm = (event: React.ChangeEvent<HTMLInputElement>) => setSearchTerm(event.target.value);
+
+  const handleTryAgain = () => loadMovies();
 
   return (
     <>
@@ -102,109 +105,111 @@ export default function Home() {
             <img src={sad} alt="sad" />
             <div className="errorDetails">
               <p>Ocorreu um erro ao carregar a lista de filmes</p>
-              <Button type="button">Tentar novamente</Button>
+              <Button type="button" onClick={handleTryAgain}>Tentar novamente</Button>
             </div>
           </ErrorContainer>
         )}
 
-        <ListMovies>
-          {filteredMovies.length > 0 && (
-            <ListHeader orderBy={orderBy}>
-              <button type="button" onClick={handleToggleOrderBy}>
-                <span>Nome</span>
-                <img src={arrow} alt="seta" />
-              </button>
-            </ListHeader>
-          )}
+        {!hasError && (
+          <ListMovies>
+            {filteredMovies.length > 0 && (
+              <ListHeader orderBy={orderBy}>
+                <button type="button" onClick={handleToggleOrderBy}>
+                  <span>Nome</span>
+                  <img src={arrow} alt="seta" />
+                </button>
+              </ListHeader>
+            )}
 
-          <Card>
+            <Card>
 
-            <Carousel
-              itemClass="image-item"
-              responsive={responsive}
-              showDots
-              infinite
-              transitionDuration={300}
-              autoPlay={false}
-              autoPlaySpeed={1800}
-              centerMode
-              swipeable
-            >
-              {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
-                <CarouselCardContainer key={index}>
-                  <CarouselCard>
-                    <h4>{movie.title}</h4>
-                    <img src={movie.image_url} alt={movie.title} />
-                    <MoviesDetails>
-                      <img src={countryFlag(movie.country_of_origin) || ""} alt={movie.country_of_origin} />
-                      <span>{movie.genre}</span>
-                      {" "}
-                        &nbsp;  &nbsp;
-                      <span>{movie.year}</span>
-                      {" "}
-                        &nbsp;  &nbsp;
-                      <span>{movie.film_review}</span>
-                    </MoviesDetails>
-                    <MoviesResume>
-                      <span>
-                        Direção:
+              <Carousel
+                itemClass="image-item"
+                responsive={responsive}
+                showDots
+                infinite
+                transitionDuration={300}
+                autoPlay={false}
+                autoPlaySpeed={1800}
+                centerMode
+                swipeable
+              >
+                {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
+                  <CarouselCardContainer key={index}>
+                    <CarouselCard>
+                      <h4>{movie.title}</h4>
+                      <img src={movie.image_url} alt={movie.title} />
+                      <MoviesDetails>
+                        <img src={countryFlag(movie.country_of_origin) || ""} alt={movie.country_of_origin} />
+                        <span>{movie.genre}</span>
                         {" "}
                         &nbsp;  &nbsp;
-                        {movie.director}
-                      </span>
-                      {" "}
-                        &nbsp;  &nbsp;
-                      <span>
-                        Roteiro:
+                        <span>{movie.year}</span>
                         {" "}
                         &nbsp;  &nbsp;
-                        {movie.movie_scriptwriter}
-                      </span>
-                      {" "}
+                        <span>{movie.film_review}</span>
+                      </MoviesDetails>
+                      <MoviesResume>
+                        <span>
+                          Direção:
+                          {" "}
                         &nbsp;  &nbsp;
-                      <span>
-                        Principais atores:
+                          {movie.director}
+                        </span>
                         {" "}
                         &nbsp;  &nbsp;
-                        {movie.movie_starring}
-                      </span>
-
-                      <span>
-                        Já assistiu:
+                        <span>
+                          Roteiro:
+                          {" "}
+                        &nbsp;  &nbsp;
+                          {movie.movie_scriptwriter}
+                        </span>
                         {" "}
                         &nbsp;  &nbsp;
-                        {movie.watched === "true" ? <img src={eyeOpen} alt="eye" className="watched-movie" /> : <img src={eyeOff} alt="eye" className="watched-movie" />}
-                      </span>
-                    </MoviesResume>
-                    <StarRating>
-                      <span>Classificação: </span>
-                      {" "}
+                        <span>
+                          Principais atores:
+                          {" "}
                         &nbsp;  &nbsp;
-                      {starRating(movie.stars)}
-                    </StarRating>
-                    <MovieComments>
-                      &quot;
-                      {" "}
-                      <span>{movie.comments}</span>
-                      {" "}
-                      &quot;
-                    </MovieComments>
+                          {movie.movie_starring}
+                        </span>
 
-                    <HoldMovies>
-                      <Link to={`/edit-movie/${movie.id}`}>
-                        <img src={edit} alt="editar" />
-                      </Link>
+                        <span>
+                          Já assistiu:
+                          {" "}
+                        &nbsp;  &nbsp;
+                          {movie.watched === "true" ? <img src={eyeOpen} alt="eye" className="watched-movie" /> : <img src={eyeOff} alt="eye" className="watched-movie" />}
+                        </span>
+                      </MoviesResume>
+                      <StarRating>
+                        <span>Classificação: </span>
+                        {" "}
+                        &nbsp;  &nbsp;
+                        {starRating(movie.stars)}
+                      </StarRating>
+                      <MovieComments>
+                        &quot;
+                        {" "}
+                        <span>{movie.comments}</span>
+                        {" "}
+                        &quot;
+                      </MovieComments>
 
-                      <button type="button">
-                        <img src={trash} alt="excluir" />
-                      </button>
-                    </HoldMovies>
-                  </CarouselCard>
-                </CarouselCardContainer>
-              ))}
-            </Carousel>
-          </Card>
-        </ListMovies>
+                      <HoldMovies>
+                        <Link to={`/edit-movie/${movie.id}`}>
+                          <img src={edit} alt="editar" />
+                        </Link>
+
+                        <button type="button">
+                          <img src={trash} alt="excluir" />
+                        </button>
+                      </HoldMovies>
+                    </CarouselCard>
+                  </CarouselCardContainer>
+                ))}
+              </Carousel>
+            </Card>
+          </ListMovies>
+        )}
       </Container>
     </>
   );

@@ -9,7 +9,7 @@ class MoviesServices {
   }
 
   async listMovies(orderBy: string = "asc") {
-    return this.httpClient.get(`/moviess?orderBy=${orderBy}`);
+    return this.httpClient.get(`/movies?orderBy=${orderBy}`);
   }
 }
 
