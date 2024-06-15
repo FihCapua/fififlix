@@ -7,7 +7,7 @@ import {
   Card,
   CarouselCard,
   CarouselCardContainer,
-  Container, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
+  Container, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
 } from "./style";
 
 import { starRating } from "../../utils/starRating";
@@ -18,7 +18,9 @@ import eyeOff from "../../assets/images/icons/eye-off.svg";
 import eyeOpen from "../../assets/images/icons/eye-open.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/trash.svg";
+import sad from "../../assets/images/sad.svg";
 import { Loader } from "../../app/components/Loader";
+import { Button } from "../../app/components/Button";
 
 import { Movie } from "../../types";
 import MoviesServices from "../../services/MoviesServices";
@@ -46,6 +48,7 @@ export default function Home() {
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     async function loadMovies() {
@@ -55,8 +58,8 @@ export default function Home() {
         const moviesList = await MoviesServices.listMovies(orderBy);
 
         setMovies(moviesList);
-      } catch (error) {
-        console.error(error);
+      } catch {
+        setHasError(true);
       } finally {
         setIsLoading(false);
       }
@@ -83,14 +86,26 @@ export default function Home() {
         />
       </InputSearchContainer>
       <Container>
-        <HeaderMovies>
-          <span>
-            {filteredMovies.length}
-            {filteredMovies.length === 1 ? " filme" : " filmes"}
-            {" "}
-          </span>
+        <HeaderMovies hasError={hasError}>
+          {!hasError && (
+            <span>
+              {filteredMovies.length}
+              {filteredMovies.length === 1 ? " filme" : " filmes"}
+              {" "}
+            </span>
+          )}
           <Link to="/new-movie">Cadastrar novo filme</Link>
         </HeaderMovies>
+
+        {hasError && (
+          <ErrorContainer>
+            <img src={sad} alt="sad" />
+            <div className="errorDetails">
+              <p>Ocorreu um erro ao carregar a lista de filmes</p>
+              <Button type="button">Tentar novamente</Button>
+            </div>
+          </ErrorContainer>
+        )}
 
         <ListMovies>
           {filteredMovies.length > 0 && (

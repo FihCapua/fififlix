@@ -4,6 +4,10 @@ interface ListHeaderProps {
     orderBy: string;
   }
 
+interface HeaderMoviesProps {
+    hasError: boolean;
+}
+
 export const InputSearchContainer = styled.div`
     margin-top: 48px;
     width: 100%;
@@ -25,11 +29,13 @@ export const Container = styled.section`
     margin: 0 auto;
 `;
 
-export const HeaderMovies = styled.div`
+export const HeaderMovies = styled.div<HeaderMoviesProps>`
     margin-top: 40px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: ${({ hasError }) => (hasError ? "flex-end" : "space-between")};
+    border-bottom: 2px solid ${({ theme }) => theme.colors.border};
+    padding-bottom: 16px;
 
     span {
         font-weight: bold;
@@ -189,5 +195,28 @@ export const HoldMovies = styled.div`
     button {
         background: transparent;
         border: none;
+    }
+`;
+
+export const ErrorContainer = styled.div`
+    margin-top: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .errorDetails {
+        margin-left: 24px;
+        width: 295px;
+
+        p {
+            font-size: 22px;
+            font-weight: bold;
+            text-align: center;
+            color: ${({ theme }) => theme.colors.primary.light};
+        }
+
+        button {
+            margin-top: 16px;
+        }
     }
 `;
