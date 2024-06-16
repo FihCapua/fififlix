@@ -89,7 +89,7 @@ export const Card = styled.div`
     margin-top: 40px;
 
     .react-multi-carousel-track {
-        gap: 200px !important;
+        gap: 115px !important;
     }
 `;
 

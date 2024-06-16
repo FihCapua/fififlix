@@ -1,4 +1,6 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, {
+  useCallback, useEffect, useMemo, useState,
+} from "react";
 import { Link } from "react-router-dom";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -50,7 +52,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
-  async function loadMovies() {
+  const loadMovies = useCallback(async () => {
     try {
       setIsLoading(true);
 
@@ -63,11 +65,11 @@ export default function Home() {
     } finally {
       setIsLoading(false);
     }
-  }
+  }, [orderBy]);
 
   useEffect(() => {
     loadMovies();
-  }, [orderBy]);
+  }, [loadMovies]);
 
   const filteredMovies = useMemo(() => movies.filter((movie) => movie.title.toLowerCase().includes(searchTerm.toLowerCase())), [movies, searchTerm]);
 
