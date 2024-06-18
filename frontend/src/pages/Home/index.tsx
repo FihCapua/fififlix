@@ -9,7 +9,7 @@ import {
   Card,
   CarouselCard,
   CarouselCardContainer,
-  Container, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
+  Container, EmptyListContainer, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
 } from "./style";
 
 import { starRating } from "../../utils/starRating";
@@ -21,6 +21,8 @@ import eyeOpen from "../../assets/images/icons/eye-open.svg";
 import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/trash.svg";
 import sad from "../../assets/images/sad.svg";
+import movieWarning from "../../assets/images/movie.svg";
+
 import { Loader } from "../../app/components/Loader";
 import { Button } from "../../app/components/Button";
 
@@ -82,17 +84,30 @@ export default function Home() {
   return (
     <>
       <Loader isLoading={isLoading} />
-      <InputSearchContainer>
-        <input
-          type="text"
-          placeholder="Pesquisar título"
-          value={searchTerm}
-          onChange={handleChangeSearchTerm}
-        />
-      </InputSearchContainer>
+
+      {movies.length > 0 && (
+        <InputSearchContainer>
+          <input
+            type="text"
+            placeholder="Pesquisar título"
+            value={searchTerm}
+            onChange={handleChangeSearchTerm}
+          />
+        </InputSearchContainer>
+      )}
+
       <Container>
-        <HeaderMovies hasError={hasError}>
-          {!hasError && (
+        <HeaderMovies
+          justifyContent={(
+            // eslint-disable-next-line no-nested-ternary
+            hasError
+              ? "flex-end"
+              : (
+                movies.length > 0 ? "space-between" : "center"
+              ))}
+        >
+          {!!(!hasError && movies.length) && (
+          /* operador de dupla negação  é usado para garantir que um valor seja convertido para um tipo booleano (true ou false). Quando o !! é aplicado a um valor, ele remove qualquer valor nulo ou indefinido (null ou undefined) do valor original e retorna um valor booleano. Por exemplo: - !! - é o mesmo que movies.length > 0 */
             <span>
               {filteredMovies.length}
               {filteredMovies.length === 1 ? " filme" : " filmes"}
@@ -113,104 +128,117 @@ export default function Home() {
         )}
 
         {!hasError && (
-          <ListMovies>
-            {filteredMovies.length > 0 && (
-              <ListHeader orderBy={orderBy}>
-                <button type="button" onClick={handleToggleOrderBy}>
-                  <span>Nome</span>
-                  <img src={arrow} alt="seta" />
-                </button>
-              </ListHeader>
+          <>
+            {(movies.length < 1 && !isLoading) && (
+              <EmptyListContainer>
+                <img src={movieWarning} alt="warning" />
+
+                <p>
+                  Você ainda não possui nenhum filme cadastrado. Clique no botão
+                  <strong> &quot;Cadastrar novo filme&quot; </strong>
+                  à cima para cadastrar seu primeiro filme!
+                </p>
+              </EmptyListContainer>
             )}
+            <ListMovies>
+              {filteredMovies.length > 0 && (
+                <ListHeader orderBy={orderBy}>
+                  <button type="button" onClick={handleToggleOrderBy}>
+                    <span>Nome</span>
+                    <img src={arrow} alt="seta" />
+                  </button>
+                </ListHeader>
+              )}
 
-            <Card>
+              <Card>
 
-              <Carousel
-                itemClass="image-item"
-                responsive={responsive}
-                showDots
-                infinite
-                transitionDuration={300}
-                autoPlay={false}
-                autoPlaySpeed={1800}
-                centerMode
-                swipeable
-              >
-                {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
-                  <CarouselCardContainer key={index}>
-                    <CarouselCard>
-                      <h4>{movie.title}</h4>
-                      <img src={movie.image_url} alt={movie.title} />
-                      <MoviesDetails>
-                        <img src={countryFlag(movie.country_of_origin) || ""} alt={movie.country_of_origin} />
-                        <span>{movie.genre}</span>
-                        {" "}
-                        &nbsp;  &nbsp;
-                        <span>{movie.year}</span>
-                        {" "}
-                        &nbsp;  &nbsp;
-                        <span>{movie.film_review}</span>
-                      </MoviesDetails>
-                      <MoviesResume>
-                        <span>
-                          Direção:
+                <Carousel
+                  itemClass="image-item"
+                  responsive={responsive}
+                  showDots
+                  infinite
+                  transitionDuration={300}
+                  autoPlay={false}
+                  autoPlaySpeed={1800}
+                  centerMode
+                  swipeable
+                >
+                  {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
+                    <CarouselCardContainer key={index}>
+                      <CarouselCard>
+                        <h4>{movie.title}</h4>
+                        <img src={movie.image_url} alt={movie.title} />
+                        <MoviesDetails>
+                          <img src={countryFlag(movie.country_of_origin) || ""} alt={movie.country_of_origin} />
+                          <span>{movie.genre}</span>
                           {" "}
                         &nbsp;  &nbsp;
-                          {movie.director}
-                        </span>
-                        {" "}
-                        &nbsp;  &nbsp;
-                        <span>
-                          Roteiro:
+                          <span>{movie.year}</span>
                           {" "}
                         &nbsp;  &nbsp;
-                          {movie.movie_scriptwriter}
-                        </span>
-                        {" "}
+                          <span>{movie.film_review}</span>
+                        </MoviesDetails>
+                        <MoviesResume>
+                          <span>
+                            Direção:
+                            {" "}
                         &nbsp;  &nbsp;
-                        <span>
-                          Principais atores:
+                            {movie.director}
+                          </span>
                           {" "}
                         &nbsp;  &nbsp;
-                          {movie.movie_starring}
-                        </span>
-
-                        <span>
-                          Já assistiu:
+                          <span>
+                            Roteiro:
+                            {" "}
+                        &nbsp;  &nbsp;
+                            {movie.movie_scriptwriter}
+                          </span>
                           {" "}
                         &nbsp;  &nbsp;
-                          {movie.watched === "true" ? <img src={eyeOpen} alt="eye" className="watched-movie" /> : <img src={eyeOff} alt="eye" className="watched-movie" />}
-                        </span>
-                      </MoviesResume>
-                      <StarRating>
-                        <span>Classificação: </span>
-                        {" "}
+                          <span>
+                            Principais atores:
+                            {" "}
                         &nbsp;  &nbsp;
-                        {starRating(movie.stars)}
-                      </StarRating>
-                      <MovieComments>
-                        &quot;
-                        {" "}
-                        <span>{movie.comments}</span>
-                        {" "}
-                        &quot;
-                      </MovieComments>
+                            {movie.movie_starring}
+                          </span>
 
-                      <HoldMovies>
-                        <Link to={`/edit-movie/${movie.id}`}>
-                          <img src={edit} alt="editar" />
-                        </Link>
+                          <span>
+                            Já assistiu:
+                            {" "}
+                        &nbsp;  &nbsp;
+                            {movie.watched === "true" ? <img src={eyeOpen} alt="eye" className="watched-movie" /> : <img src={eyeOff} alt="eye" className="watched-movie" />}
+                          </span>
+                        </MoviesResume>
+                        <StarRating>
+                          <span>Classificação: </span>
+                          {" "}
+                        &nbsp;  &nbsp;
+                          {starRating(movie.stars)}
+                        </StarRating>
+                        <MovieComments>
+                          &quot;
+                          {" "}
+                          <span>{movie.comments}</span>
+                          {" "}
+                          &quot;
+                        </MovieComments>
 
-                        <button type="button">
-                          <img src={trash} alt="excluir" />
-                        </button>
-                      </HoldMovies>
-                    </CarouselCard>
-                  </CarouselCardContainer>
-                ))}
-              </Carousel>
-            </Card>
-          </ListMovies>
+                        <HoldMovies>
+                          <Link to={`/edit-movie/${movie.id}`}>
+                            <img src={edit} alt="editar" />
+                          </Link>
+
+                          <button type="button">
+                            <img src={trash} alt="excluir" />
+                          </button>
+                        </HoldMovies>
+                      </CarouselCard>
+                    </CarouselCardContainer>
+                  ))}
+                </Carousel>
+              </Card>
+            </ListMovies>
+          </>
         )}
       </Container>
     </>

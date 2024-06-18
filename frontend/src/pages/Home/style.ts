@@ -5,7 +5,7 @@ interface ListHeaderProps {
   }
 
 interface HeaderMoviesProps {
-    hasError: boolean;
+    justifyContent: string;
 }
 
 export const InputSearchContainer = styled.div`
@@ -33,7 +33,7 @@ export const HeaderMovies = styled.div<HeaderMoviesProps>`
     margin-top: 40px;
     display: flex;
     align-items: center;
-    justify-content: ${({ hasError }) => (hasError ? "flex-end" : "space-between")};
+    justify-content: ${({ justifyContent }) => justifyContent};
     border-bottom: 2px solid ${({ theme }) => theme.colors.border};
     padding-bottom: 16px;
 
@@ -217,6 +217,23 @@ export const ErrorContainer = styled.div`
 
         button {
             margin-top: 16px;
+        }
+    }
+`;
+
+export const EmptyListContainer = styled.div`
+    margin-top: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+        margin-top: 8px;
+        text-align: center;
+        color: ${({ theme }) => theme.colors.primary.light};
+
+        strong {
+            color: ${({ theme }) => theme.colors.secondary.main};
         }
     }
 `;
