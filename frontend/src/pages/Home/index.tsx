@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from "react";
@@ -9,7 +10,7 @@ import {
   Card,
   CarouselCard,
   CarouselCardContainer,
-  Container, EmptyListContainer, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, StarRating,
+  Container, EmptyListContainer, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, SearchNotFoundContainer, StarRating,
 } from "./style";
 
 import { starRating } from "../../utils/starRating";
@@ -22,6 +23,7 @@ import edit from "../../assets/images/icons/edit.svg";
 import trash from "../../assets/images/icons/trash.svg";
 import sad from "../../assets/images/sad.svg";
 import movieWarning from "../../assets/images/movie.svg";
+import magnifyGlass from "../../assets/images/magn-glass.svg";
 
 import { Loader } from "../../app/components/Loader";
 import { Button } from "../../app/components/Button";
@@ -140,6 +142,17 @@ export default function Home() {
                 </p>
               </EmptyListContainer>
             )}
+
+            {(movies.length > 0 && filteredMovies.length < 1) && (
+              <SearchNotFoundContainer>
+                <img src={magnifyGlass} alt="magnifyGlass" />
+
+                <span>
+                  Nenhum resultado foi encontrado para: <strong> &quot; {searchTerm}&quot; </strong>Faça uma nova pesquisa.
+                </span>
+              </SearchNotFoundContainer>
+            )}
+
             <ListMovies>
               {filteredMovies.length > 0 && (
                 <ListHeader orderBy={orderBy}>

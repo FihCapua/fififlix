@@ -237,3 +237,21 @@ export const EmptyListContainer = styled.div`
         }
     }
 `;
+
+export const SearchNotFoundContainer = styled.div`
+    margin-top: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+
+    span {
+        font-size: 16px;
+        color: ${({ theme }) => theme.colors.primary.light};
+        margin-left: 24px;
+        word-break: break-word;
+
+        strong {
+            color: ${({ theme }) => theme.colors.secondary.main};
+        }
+    }
+`;
