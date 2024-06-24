@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 interface ListHeaderProps {
     orderBy: string;
-  }
+}
 
 interface HeaderMoviesProps {
     justifyContent: string;
@@ -65,32 +65,33 @@ export const ListMovies = styled.section`
 
 export const ListHeader = styled.header<ListHeaderProps>`
     button {
-            background: transparent;
-            border: none;
-            display: flex;
-            align-items: center;
+        background: transparent;
+        border: none;
+        display: flex;
+        align-items: center;
 
-            span {
-                margin-right: 8px;
-                color: ${({ theme }) => theme.colors.primaryText};
-                font-weight: bold;
-                font-size: 12px;
-            }
-
-            img {
-                width: 15px;
-                transform: ${({ orderBy }) => (orderBy === "asc" ? "rotate(0deg)" : "rotate(180deg)")};
-                transition: transform 0.2s ease-in;
-            }
+        span {
+            margin-right: 8px;
+            color: ${({ theme }) => theme.colors.primaryText};
+            font-weight: bold;
+            font-size: 12px;
         }
+
+        img {
+            width: 15px;
+            transform: ${({ orderBy }) => (orderBy === "asc" ? "rotate(0deg)" : "rotate(180deg)")};
+            transition: transform 0.2s ease-in;
+        }
+    }
 `;
 
 export const Card = styled.div`
     margin-top: 40px;
+`;
 
-    .react-multi-carousel-track {
-        gap: 115px !important;
-    }
+export const CardWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 `;
 
 export const CarouselCardContainer = styled.div`
@@ -150,12 +151,14 @@ export const MoviesResume = styled.div`
     }
 
     img {
-        width: 20px;
+        width: 15px;
         height: 20px;
     }
 
     .watched-movie {
         margin-left: 60px;
+        position: relative;
+        top: 10px;
     }
 `;
 
@@ -167,6 +170,8 @@ export const StarRating = styled.div`
     img {
         width: 20px;
         height: 20px;
+        position: relative;
+        top: 10px;
     }
 `;
 

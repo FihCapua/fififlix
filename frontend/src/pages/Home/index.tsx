@@ -3,11 +3,10 @@ import React, {
   useCallback, useEffect, useMemo, useState,
 } from "react";
 import { Link } from "react-router-dom";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 
 import {
   Card,
+  CardWrapper,
   CarouselCard,
   CarouselCardContainer,
   Container, EmptyListContainer, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, SearchNotFoundContainer, StarRating,
@@ -30,24 +29,6 @@ import { Button } from "../../app/components/Button";
 
 import { Movie } from "../../types";
 import MoviesServices from "../../services/MoviesServices";
-
-const responsive = {
-  desktop: {
-    breakpoint: { max: 3000, min: 900 },
-    items: 3,
-    partialVisibilityGutter: 42,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 464 },
-    items: 1,
-    partialVisibilityGutter: 32,
-  },
-  mobile: {
-    breakpoint: { max: 464, min: 300 },
-    items: 3,
-    partialVisibilityGutter: 20,
-  },
-};
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -164,18 +145,7 @@ export default function Home() {
               )}
 
               <Card>
-
-                <Carousel
-                  itemClass="image-item"
-                  responsive={responsive}
-                  showDots
-                  infinite
-                  transitionDuration={300}
-                  autoPlay={false}
-                  autoPlaySpeed={1800}
-                  centerMode
-                  swipeable
-                >
+                <CardWrapper>
                   {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
                     <CarouselCardContainer key={index}>
                       <CarouselCard>
@@ -248,7 +218,7 @@ export default function Home() {
                       </CarouselCard>
                     </CarouselCardContainer>
                   ))}
-                </Carousel>
+                </CardWrapper>
               </Card>
             </ListMovies>
           </>
