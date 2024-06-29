@@ -1,16 +1,16 @@
 export interface Movie {
-    id: string;
+    id?: string;
     comments: string;
-    country_of_origin: string;
+    countryOfOrigin: string;
     director: string;
-    film_review: string;
+    filmReview: string;
     genre: string;
-    image_url: string;
-    movie_scriptwriter: string;
-    movie_starring: string;
+    imageUrl: string;
+    movieScriptwriter: string;
+    movieStarring: string;
     score: string;
-    stars: string;
+    stars: number;
     title: string;
-    watched: string;
+    watched: boolean;
     year: string
   }

@@ -3,22 +3,26 @@ import { Button } from "../Button";
 import { FormGroup } from "../FormGroup";
 import { Input } from "../Input";
 import { ButtonContainer, Form } from "./style";
+import { Movie } from "../../../types";
 
-export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
-  const [formData, setFormData] = useState({
+// eslint-disable-next-line no-unused-vars
+export function MovieForm({ buttonLabel, onSubmit }: { buttonLabel: string, onSubmit: (formData: Movie) => void }) {
+  const [formData, setFormData] = useState<Movie>({
     title: "",
-    movieImage: "",
-    country: "",
-    genre: "",
-    year: "",
-    rating: "",
-    director: "",
-    scriptwriter: "",
-    actors: "",
-    watchList: false,
-    stars: 0,
     comments: "",
+    countryOfOrigin: "",
+    director: "",
+    filmReview: "",
+    genre: "",
+    imageUrl: "",
+    movieScriptwriter: "",
+    movieStarring: "",
+    score: "",
+    stars: 0,
+    watched: false,
+    year: "",
   });
+
   const [isFormValid, setIsFormValid] = useState(false);
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -38,6 +42,8 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+
+    onSubmit(formData);
   };
 
   return (
@@ -47,11 +53,11 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
       </FormGroup>
 
       <FormGroup>
-        <Input type="text" name="movieImage" placeholder="Capa do filme" value={formData.movieImage} onChange={handleChange} />
+        <Input type="text" name="imageUrl" placeholder="Capa do filme" value={formData.imageUrl} onChange={handleChange} />
       </FormGroup>
 
       <FormGroup>
-        <Input type="text" name="country" placeholder="Páis de origem" value={formData.country} onChange={handleChange} />
+        <Input type="text" name="countryOfOrigin" placeholder="Páis de origem" value={formData.countryOfOrigin} onChange={handleChange} />
       </FormGroup>
 
       <FormGroup>
@@ -63,7 +69,7 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
       </FormGroup>
 
       <FormGroup>
-        <Input type="text" name="rating" placeholder="Avaliação" value={formData.rating} onChange={handleChange} />
+        <Input type="text" name="score" placeholder="Avaliação" value={formData.score} onChange={handleChange} />
       </FormGroup>
 
       <FormGroup>
@@ -71,18 +77,18 @@ export function MovieForm({ buttonLabel }: { buttonLabel: string }) {
       </FormGroup>
 
       <FormGroup>
-        <Input type="text" name="scriptwriter" placeholder="Roteirista" value={formData.scriptwriter} onChange={handleChange} />
+        <Input type="text" name="movieScriptwriter" placeholder="Roteirista" value={formData.movieScriptwriter} onChange={handleChange} />
       </FormGroup>
 
       <FormGroup>
-        <Input type="text" name="actors" placeholder="Principais atores" value={formData.actors} onChange={handleChange} />
+        <Input type="text" name="movieStarring" placeholder="Principais atores" value={formData.movieStarring} onChange={handleChange} />
       </FormGroup>
 
       <FormGroup>
         <div className="checkbox-form">
           <span>Já assistiu?</span>
-          <Input type="checkbox" name="watchList" checked={formData.watchList} onChange={() => setFormData((prevState) => ({ ...prevState, watchList: !prevState.watchList }))} />
-          <span>{formData.watchList ? "Sim" : "Não"}</span>
+          <Input type="checkbox" name="watched" checked={formData.watched} onChange={() => setFormData((prevState) => ({ ...prevState, watched: !prevState.watched }))} />
+          <span>{formData.watched ? "Sim" : "Não"}</span>
         </div>
       </FormGroup>
 

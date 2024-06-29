@@ -11,6 +11,10 @@ class MoviesServices {
   async listMovies(orderBy: string = "asc") {
     return this.httpClient.get(`/movies?orderBy=${orderBy}`);
   }
+
+  async createMovie(movie: any) {
+    return this.httpClient.post("/movies", movie);
+  }
 }
 
 export default new MoviesServices();
