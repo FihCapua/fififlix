@@ -9,31 +9,23 @@ class HttpCLient {
     this.baseUrl = baseUrl;
   }
 
-  async get(path: string) {
-    const response = await fetch(`${this.baseUrl}${path}`);
-
-    let body = null;
-    const contentType = response.headers.get("Content-Type");
-
-    if (contentType?.includes("application/json")) {
-      body = await response.json();
-    }
-
-    if (response.ok) {
-      return body;
-    }
-
-    throw new ApiError(response, body);
+  get(path: string) {
+    return this.makeRequest(path, { method: "GET" });
   }
 
-  async post(path: string, body: any) {
-    const headers = new Headers({
-      "Content-Type": "application/json",
-    });
+  post(path: string, body: any) {
+    return this.makeRequest(path, { method: "POST", body });
+  }
+
+  async makeRequest(path: string, options: any = {}) {
+    const headers = new Headers();
+    if (options.body) {
+      headers.append("Content-Type", "application/json");
+    }
 
     const response = await fetch(`${this.baseUrl}${path}`, {
-      method: "POST",
-      body: JSON.stringify(body),
+      method: options.method,
+      body: JSON.stringify(options.body),
       headers,
     });
 
