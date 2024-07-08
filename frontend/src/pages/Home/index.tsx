@@ -27,11 +27,10 @@ import magnifyGlass from "../../assets/images/magn-glass.svg";
 import { Loader } from "../../app/components/Loader";
 import { Button } from "../../app/components/Button";
 
-import { Movie } from "../../types";
 import MoviesServices from "../../services/MoviesServices";
 
 export default function Home() {
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<any[]>([]);
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -66,7 +65,7 @@ export default function Home() {
 
   return (
     <>
-      <Loader isLoading={isLoading} />
+      <Loader isLoading={isLoading} fullScreen size="32px" />
 
       {movies.length > 0 && (
         <InputSearchContainer>

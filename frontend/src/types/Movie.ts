@@ -9,7 +9,7 @@ export interface Movie {
     movieScriptwriter: string;
     movieStarring: string;
     score: string;
-    stars: number;
+    stars: number | string;
     title: string;
     watched: boolean;
     year: string

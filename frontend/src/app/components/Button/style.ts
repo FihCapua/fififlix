@@ -4,7 +4,7 @@ interface ButtonProps {
     danger?: boolean;
 }
 
-export const Button = styled.button<ButtonProps>`
+export const StyledButton = styled.button<ButtonProps>`
     max-width: 450px;
     height: 40px;
     margin: 0 auto 15px;
@@ -19,6 +19,9 @@ export const Button = styled.button<ButtonProps>`
     border: 2px solid ${({ theme }) => theme.colors.secondary.dark};
     border-radius: 4px;
     transition: background 0.2s ease-in;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     &:hover {
         background-color: ${({ theme }) => theme.colors.secondary.dark};

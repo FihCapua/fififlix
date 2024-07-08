@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 
-import { Button } from "../Button";
+import { Button } from "../Button/style";
 import { Container, FooterModal, Overlay } from "./style";
 
 export function Modal({ title, description, danger }: { title: string, description: string, danger?: boolean }) {

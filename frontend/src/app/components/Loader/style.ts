@@ -1,5 +1,10 @@
 import styled, { keyframes } from "styled-components";
 
+type OverlayProps = {
+    fullScreen?: boolean;
+    size?: string;
+};
+
 const load = keyframes`
   0% {
     box-shadow: 0 -0.83em 0 -0.4em, 0 -0.83em 0 -0.42em, 0 -0.83em 0 -0.44em, 0 -0.83em 0 -0.46em, 0 -0.83em 0 -0.477em;
@@ -34,12 +39,13 @@ const round = keyframes`
   }
 `;
 
-export const Overlay = styled.div`
+export const Overlay = styled.div<OverlayProps>`
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(7px);
-    width: 100%;
-    height: 100%;
-    position: absolute;
+    width: ${({ fullScreen }) => (fullScreen ? "100vw" : "100%")};
+    height: ${({ fullScreen }) => (fullScreen ? "100vh" : "100%")};
+    font-size: ${({ size }) => size || "45px"};
+    position: fixed;
     top: 0;
     left: 0;
 
@@ -60,7 +66,8 @@ export const Overlay = styled.div`
         -webkit-transform: translateZ(0);
         -ms-transform: translateZ(0);
         transform: translateZ(0);
-        -webkit-animation: ${load} 1.7s infinite ease, ${round} 1.7s infinite ease;
+        -webkit-animation: ${load} 1.7s infinite ease,
+            ${round} 1.7s infinite ease;
         animation: ${load} 1.7s infinite ease, ${round} 1.7s infinite ease;
-        }
+    }
 `;

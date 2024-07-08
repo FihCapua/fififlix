@@ -24,4 +24,10 @@ export const Input = styled.input<InputProps>`
         color: ${theme.colors.primary.light};
         border-color: ${theme.colors.primary.light} !important;
     `}
+
+    &[disabled] {
+        background-color: ${({ theme }) => theme.colors.border};
+        border: none;
+        opacity: 1;
+    }
 `;
