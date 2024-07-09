@@ -1,6 +1,6 @@
 import ReactDOM from "react-dom";
 
-import { Button } from "../Button/style";
+import { Button } from "../Button";
 import { Container, FooterModal, Overlay } from "./style";
 
 export function Modal({ title, description, danger }: { title: string, description: string, danger?: boolean }) {
@@ -12,7 +12,7 @@ export function Modal({ title, description, danger }: { title: string, descripti
         <p>{description}</p>
 
         <FooterModal>
-          <button type="button" className="cancel-btn">Cancelar</button>
+          <Button type="button" className="cancel-btn">Cancelar</Button>
 
           <Button type="button" className="delete-btn" danger={danger}>Deletar</Button>
         </FooterModal>
