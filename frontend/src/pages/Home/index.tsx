@@ -9,7 +9,7 @@ import {
   CardWrapper,
   CarouselCard,
   CarouselCardContainer,
-  Container, EmptyListContainer, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MoviesDetails, MoviesResume, SearchNotFoundContainer, StarRating,
+  Container, EmptyListContainer, ErrorContainer, HeaderMovies, HoldMovies, InputSearchContainer, ListHeader, ListMovies, MovieComments, MovieTitle, MoviesDetails, MoviesResume, SearchNotFoundContainer, StarRating,
 } from "./style";
 
 import { starRating } from "../../utils/starRating";
@@ -28,9 +28,10 @@ import { Loader } from "../../app/components/Loader";
 import { Button } from "../../app/components/Button";
 
 import MoviesServices from "../../services/MoviesServices";
+import { MovieProps } from "../../types";
 
 export default function Home() {
-  const [movies, setMovies] = useState<any[]>([]);
+  const [movies, setMovies] = useState<MovieProps[]>([]);
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
@@ -93,7 +94,6 @@ export default function Home() {
             <span>
               {filteredMovies.length}
               {filteredMovies.length === 1 ? " filme" : " filmes"}
-              {" "}
             </span>
           )}
           <Link to="/new-movie">Cadastrar novo filme</Link>
@@ -148,60 +148,37 @@ export default function Home() {
                   {filteredMovies.length > 0 && filteredMovies.map((movie, index) => (
                     <CarouselCardContainer key={index}>
                       <CarouselCard>
-                        <h4>{movie.title}</h4>
-                        <img src={movie.image_url} alt={movie.title} />
+                        <MovieTitle>
+                          <h4>{movie.title}</h4>
+                          <img src={movie.image_url} alt={movie.title} />
+                        </MovieTitle>
                         <MoviesDetails>
                           <img src={countryFlag(movie.country_of_origin) || ""} alt={movie.country_of_origin} />
                           <span>{movie.genre}</span>
-                          {" "}
-                        &nbsp;  &nbsp;
                           <span>{movie.year}</span>
-                          {" "}
-                        &nbsp;  &nbsp;
                           <span>{movie.film_review}</span>
                         </MoviesDetails>
                         <MoviesResume>
                           <span>
-                            Direção:
-                            {" "}
-                        &nbsp;  &nbsp;
-                            {movie.director}
+                            Direção: &nbsp;  &nbsp; {movie.director}
                           </span>
-                          {" "}
+                          <span>
+                            Roteiro: &nbsp;  &nbsp; {movie.movie_scriptwriter}
+                          </span>
                         &nbsp;  &nbsp;
                           <span>
-                            Roteiro:
-                            {" "}
-                        &nbsp;  &nbsp;
-                            {movie.movie_scriptwriter}
+                            Principais atores:  &nbsp;  &nbsp; {movie.movie_starring}
                           </span>
-                          {" "}
-                        &nbsp;  &nbsp;
                           <span>
-                            Principais atores:
-                            {" "}
-                        &nbsp;  &nbsp;
-                            {movie.movie_starring}
-                          </span>
-
-                          <span>
-                            Já assistiu:
-                            {" "}
-                        &nbsp;  &nbsp;
-                            {movie.watched === "true" ? <img src={eyeOpen} alt="eye" className="watched-movie" /> : <img src={eyeOff} alt="eye" className="watched-movie" />}
+                            Já assistiu: &nbsp;  &nbsp; {movie.watched ? <img src={eyeOpen} alt="eye" className="watched-movie" /> : <img src={eyeOff} alt="eye" className="watched-movie" />}
                           </span>
                         </MoviesResume>
                         <StarRating>
-                          <span>Classificação: </span>
-                          {" "}
-                        &nbsp;  &nbsp;
-                          {starRating(movie.stars)}
+                          <span>Classificação: </span> &nbsp;  &nbsp; {starRating(movie.stars)}
                         </StarRating>
                         <MovieComments>
                           &quot;
-                          {" "}
                           <span>{movie.comments}</span>
-                          {" "}
                           &quot;
                         </MovieComments>
 

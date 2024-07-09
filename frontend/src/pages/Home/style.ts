@@ -99,8 +99,8 @@ export const CarouselCardContainer = styled.div`
     border: 2px solid ${({ theme }) => theme.colors.border};
     border-radius: 4px;
     padding: 10px;
-    width: 390px;
-    height: 650px;
+    width: 95%;
+    height: 70vh;
     margin-bottom: 30px;
 `;
 
@@ -121,12 +121,23 @@ export const CarouselCard = styled.div`
     }
 `;
 
+export const MovieTitle = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img {
+        border: 2px solid ${({ theme }) => theme.colors.border};
+    }
+`;
+
 export const MoviesDetails = styled.div`
     margin-top: 35px;
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
-    gap: 6px;
-    align-items: end;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    align-items: center;
+    gap: 10%;
 
     img {
         width: 20px;
@@ -151,14 +162,14 @@ export const MoviesResume = styled.div`
     }
 
     img {
-        width: 15px;
+        width: 20px;
         height: 20px;
     }
 
     .watched-movie {
-        margin-left: 60px;
         position: relative;
-        top: 10px;
+        top: 7px;
+        left: 5px;
     }
 `;
 
@@ -171,7 +182,8 @@ export const StarRating = styled.div`
         width: 20px;
         height: 20px;
         position: relative;
-        top: 10px;
+        top: 5px;
+        left: -12px;
     }
 `;
 
@@ -190,6 +202,7 @@ export const HoldMovies = styled.div`
     width: 100%;
     justify-content: end;
     align-items: center;
+    margin-top: 25px;
 
     img {
         width: 20px;
