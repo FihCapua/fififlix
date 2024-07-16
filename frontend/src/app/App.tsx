@@ -6,6 +6,7 @@ import defaultTheme from "../assets/styles/themes/default.ts";
 
 import { Container } from "./styles.ts";
 import { Header } from "./components/Header/index.tsx";
+import { ToastContainer } from "./components/Toast/ToastContainer/index.tsx";
 
 import Routes from "../Routes.tsx";
 
@@ -14,6 +15,7 @@ function App() {
     <BrowserRouter>
       <ThemeProvider theme={defaultTheme}>
         <GlobalStyles />
+        <ToastContainer />
         <Container>
 
           <Header />

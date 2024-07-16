@@ -100,7 +100,7 @@ export const CarouselCardContainer = styled.div`
     border-radius: 4px;
     padding: 10px;
     width: 95%;
-    height: 70vh;
+    height: 100vh;
     margin-bottom: 30px;
 `;
 
@@ -189,7 +189,7 @@ export const StarRating = styled.div`
 
 export const MovieComments = styled.div`
     margin: 15px 10px;
-    height: 90px;
+    height: 15vh;
 
     span {
         font-family: 11px;
@@ -198,11 +198,12 @@ export const MovieComments = styled.div`
 `;
 
 export const HoldMovies = styled.div`
-    display: flex;
-    width: 100%;
-    justify-content: end;
-    align-items: center;
-    margin-top: 25px;
+    display: block;
+    width: 25%;
+    height: 5vh;
+    position: relative;
+    top: 55px;
+    left: 80%;
 
     img {
         width: 20px;
