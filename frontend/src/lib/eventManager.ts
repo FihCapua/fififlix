@@ -16,6 +16,18 @@ export default class EventManager {
   emit(event: string, payload: any) {
     if (this.listeners[event]) this.listeners[event].forEach((listener: any) => listener(payload));
   }
+
+  removeListener(event: string, listenerToRemove: any) {
+    const listeners = this.listeners[event];
+
+    if (!listeners) {
+      return;
+    }
+
+    const filteredListeners = listeners.filter((listener: any) => listener !== listenerToRemove);
+
+    this.listeners[event] = filteredListeners;
+  }
 }
 
 const toastEventManager = new EventManager();
