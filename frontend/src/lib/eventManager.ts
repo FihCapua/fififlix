@@ -1,24 +1,24 @@
 export default class EventManager {
-  listeners: { [key: string]: any[] } = {};
+  listeners: Map<string, any[]> = new Map();
 
   constructor() {
-    this.listeners = {};
+    this.listeners = new Map();
   }
 
   on(event: string, listener: any) {
-    if (!this.listeners[event]) {
-      this.listeners[event] = [];
+    if (!this.listeners.has(event)) {
+      this.listeners.set(event, []);
     }
 
-    this.listeners[event].push(listener);
+    this.listeners.get(event)?.push(listener);
   }
 
   emit(event: string, payload: any) {
-    if (this.listeners[event]) this.listeners[event].forEach((listener: any) => listener(payload));
+    if (this.listeners.has(event)) this.listeners.get(event)?.forEach((listener: any) => listener(payload));
   }
 
   removeListener(event: string, listenerToRemove: any) {
-    const listeners = this.listeners[event];
+    const listeners = this.listeners.get(event);
 
     if (!listeners) {
       return;
@@ -26,7 +26,7 @@ export default class EventManager {
 
     const filteredListeners = listeners.filter((listener: any) => listener !== listenerToRemove);
 
-    this.listeners[event] = filteredListeners;
+    this.listeners.set(event, filteredListeners);
   }
 }
 
