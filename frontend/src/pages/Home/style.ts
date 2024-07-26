@@ -199,7 +199,7 @@ export const MovieComments = styled.div`
 
 export const HoldMovies = styled.div`
     display: block;
-    width: 25%;
+    width: 100px;
     height: 5vh;
     position: relative;
     top: 55px;

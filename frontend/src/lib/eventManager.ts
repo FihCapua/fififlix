@@ -29,13 +29,3 @@ export default class EventManager {
     this.listeners.set(event, filteredListeners);
   }
 }
-
-const toastEventManager = new EventManager();
-
-toastEventManager.on("addToast", (payload: any) => {
-  console.log("addToast Listener", payload);
-});
-
-toastEventManager.emit("addToast", { type: "danger", text: "Teste" });
-
-console.log({ toastEventManager });

@@ -2,13 +2,9 @@ import { Container } from "./style";
 
 import check from "../../../../assets/images/check_circle.svg";
 import cancel from "../../../../assets/images/cancel_circle.svg";
+import { ToastType } from "../../../../types";
 
-type ToastMessageProps = {
-    text: string;
-    type?: "default" | "danger" | "success";
-};
-
-export function ToastMessage({ text, type = "default" }: ToastMessageProps) {
+export function ToastMessage({ text, type = "default" }: ToastType) {
   return (
 
     <Container type={type}>

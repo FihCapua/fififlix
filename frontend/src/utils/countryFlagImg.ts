@@ -5,7 +5,7 @@ import uruguay from "../assets/images/uruguay.svg";
 
 export const countryFlag = (country: string) => {
   switch (country) {
-  case "Estados Unidos":
+  case "Estados Unidos" || "EUA":
     return eua;
 
   case "Japão":

@@ -2,6 +2,7 @@ import { MovieForm } from "../../app/components/Form";
 import { PageHeader } from "../../app/components/PageHeader";
 import MoviesServices from "../../services/MoviesServices";
 import { Movie } from "../../types";
+import { Toast } from "../../utils/toast";
 
 export default function NewMovie() {
   const handleSubmit = async (formData: Movie) => {
@@ -23,11 +24,11 @@ export default function NewMovie() {
         year: formData.year,
       };
 
-      const response = await MoviesServices.createMovie(movie);
+      await MoviesServices.createMovie(movie);
 
-      console.log(response);
+      Toast({ type: "success", text: "Filme criado com sucesso!" });
     } catch {
-      alert("Filme ja existe");
+      Toast({ type: "danger", text: "Erro ao criar o filme!" });
     }
   };
 
