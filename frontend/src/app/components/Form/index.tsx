@@ -6,26 +6,32 @@ import { Movie } from "../../../types";
 import { Button } from "../Button";
 import { Loader } from "../Loader";
 
+const initialFormData: Movie = {
+  title: "",
+  comments: "",
+  countryOfOrigin: "",
+  director: "",
+  filmReview: "",
+  genre: "",
+  imageUrl: "",
+  movieScriptwriter: "",
+  movieStarring: "",
+  score: "",
+  stars: "",
+  watched: false,
+  year: "",
+};
+
 // eslint-disable-next-line no-unused-vars
 export function MovieForm({ buttonLabel, onSubmit }: { buttonLabel: string, onSubmit: (formData: Movie) => void }) {
-  const [formData, setFormData] = useState<Movie>({
-    title: "",
-    comments: "",
-    countryOfOrigin: "",
-    director: "",
-    filmReview: "",
-    genre: "",
-    imageUrl: "",
-    movieScriptwriter: "",
-    movieStarring: "",
-    score: "",
-    stars: "",
-    watched: false,
-    year: "",
-  });
+  const [formData, setFormData] = useState<Movie>(initialFormData);
 
   const [isFormValid, setIsFormValid] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
+  const clearForm = () => {
+    setFormData(initialFormData);
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const {
@@ -50,6 +56,7 @@ export function MovieForm({ buttonLabel, onSubmit }: { buttonLabel: string, onSu
       await onSubmit(formData);
     } catch { /* empty */ } finally {
       setIsLoading(false);
+      clearForm();
     }
   };
 

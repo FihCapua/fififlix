@@ -1,6 +1,7 @@
+import brasil from "../assets/images/brasil.svg";
+import czechRepublic from "../assets/images/czech-republic.svg";
 import eua from "../assets/images/usa.svg";
 import japan from "../assets/images/japan.svg";
-import czechRepublic from "../assets/images/czech-republic.svg";
 import uruguay from "../assets/images/uruguay.svg";
 
 export const countryFlag = (country: string) => {
@@ -16,6 +17,9 @@ export const countryFlag = (country: string) => {
 
   case "Uruguai":
     return uruguay;
+
+  case "Brasil":
+    return brasil;
 
   default:
     return null;
