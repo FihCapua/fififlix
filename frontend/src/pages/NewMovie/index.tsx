@@ -26,9 +26,9 @@ export default function NewMovie() {
 
       await MoviesServices.createMovie(movie);
 
-      Toast({ type: "success", text: "Filme criado com sucesso!" });
+      Toast({ type: "success", text: "Filme criado com sucesso!", duration: 5000 });
     } catch {
-      Toast({ type: "danger", text: "Erro ao criar o filme!" });
+      Toast({ type: "danger", text: "Erro ao criar o filme!", duration: 5000 });
     }
   };
 
