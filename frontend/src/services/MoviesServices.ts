@@ -8,11 +8,15 @@ class MoviesServices {
     this.httpClient = new HttpClient("http://localhost:3000");
   }
 
-  async listMovies(orderBy: string = "asc") {
+  listMovies(orderBy: string = "asc") {
     return this.httpClient.get(`/movies?orderBy=${orderBy}`);
   }
 
-  async createMovie(movie: any) {
+  getContactById(id: string) {
+    return this.httpClient.get(`/movies/${id}`);
+  }
+
+  createMovie(movie: any) {
     return this.httpClient.post("/movies", movie);
   }
 }

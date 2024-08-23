@@ -23,7 +23,7 @@ const initialFormData: Movie = {
 };
 
 // eslint-disable-next-line no-unused-vars
-export function MovieForm({ buttonLabel, onSubmit }: { buttonLabel: string, onSubmit: (formData: Movie) => void }) {
+export function MovieForm({ buttonLabel, onSubmit }: { buttonLabel: string, onSubmit?: (formData: Movie) => void }) {
   const [formData, setFormData] = useState<Movie>(initialFormData);
 
   const [isFormValid, setIsFormValid] = useState(false);
@@ -53,7 +53,7 @@ export function MovieForm({ buttonLabel, onSubmit }: { buttonLabel: string, onSu
     setIsLoading(true);
 
     try {
-      await onSubmit(formData);
+      await onSubmit?.(formData);
     } catch { /* empty */ } finally {
       setIsLoading(false);
       clearForm();
