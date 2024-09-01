@@ -31,3 +31,14 @@ export type MovieProps = {
     watched: boolean;
     year: string;
 }
+
+export type MovieFormProps = {
+    buttonLabel: string;
+    // eslint-disable-next-line no-unused-vars
+    onSubmit?: (formData: Movie) => void;
+}
+
+export type MovieFormRef = {
+    // eslint-disable-next-line no-unused-vars
+    setFieldsValue: (movie: Movie) => void;
+}

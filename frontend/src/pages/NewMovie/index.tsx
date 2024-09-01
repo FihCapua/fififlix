@@ -16,7 +16,7 @@ export default function NewMovie() {
         genre: formData.genre,
         image_url: formData.imageUrl,
         movie_scriptwriter: formData.movieScriptwriter,
-        movie_starring: formData.movieStarring,
+        movie_starring: formData.movieScriptwriter,
         score: formData.score,
         stars: formData.stars,
         title: formData.title,

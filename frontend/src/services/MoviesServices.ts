@@ -12,7 +12,7 @@ class MoviesServices {
     return this.httpClient.get(`/movies?orderBy=${orderBy}`);
   }
 
-  getContactById(id: string) {
+  getMovieById(id: string) {
     return this.httpClient.get(`/movies/${id}`);
   }
 
