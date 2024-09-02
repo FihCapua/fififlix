@@ -14,6 +14,8 @@ export default function EditMovie() {
   const history = useHistory();
 
   const [isLoading, setIsLoading] = useState(true);
+  const [movieName, setMovieName] = useState("");
+
   const movieFormRef = useRef<MovieFormRef>(null);
 
   useEffect(() => {
@@ -44,6 +46,7 @@ export default function EditMovie() {
         }
 
         setIsLoading(false);
+        setMovieName(movie.title);
       } catch {
         history.push("/");
         Toast({ type: "danger", text: "Filme não encontrado", duration: 5000 });
@@ -57,7 +60,7 @@ export default function EditMovie() {
     <>
       <Loader isLoading={isLoading} fullScreen size="32px" />
 
-      <PageHeader title="Editar filme" />
+      <PageHeader title={isLoading ? "Carregando..." : `Editar filme: ${movieName}`} />
 
       <MovieForm ref={movieFormRef} buttonLabel="Editar filme" />
     </>
