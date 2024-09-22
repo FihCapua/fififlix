@@ -2,7 +2,7 @@
 import React, {
   useCallback, useEffect, useMemo, useState,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import {
   Card,
@@ -31,6 +31,13 @@ import MoviesServices from "../../services/MoviesServices";
 import { MovieProps } from "../../types";
 
 export default function Home() {
+  const history = useHistory();
+
+  const handleNavigateMovie = (movie?: Movie) => {
+    const route = movie ? `edit-movie/${movie.id}` : "new-movie";
+    history.push(route);
+    window.location.reload();
+  };
   const [movies, setMovies] = useState<MovieProps[]>([]);
   const [orderBy, setOrderBy] = useState("asc");
   const [searchTerm, setSearchTerm] = useState("");
@@ -96,7 +103,7 @@ export default function Home() {
               {filteredMovies.length === 1 ? " filme" : " filmes"}
             </span>
           )}
-          <Link to="/new-movie">Cadastrar novo filme</Link>
+          <Link to="/new-movie" onClick={() => handleNavigateMovie()}>Cadastrar novo filme</Link>
         </HeaderMovies>
 
         {hasError && (
@@ -183,7 +190,7 @@ export default function Home() {
                         </MovieComments>
 
                         <HoldMovies>
-                          <Link to={`/edit-movie/${movie.id}`}>
+                          <Link to={`/edit-movie/${movie.id}`} onClick={() => handleNavigateMovie(movie)}>
                             <img src={edit} alt="editar" />
                           </Link>
 
