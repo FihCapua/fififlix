@@ -19,6 +19,10 @@ class MoviesServices {
   createMovie(movie: any) {
     return this.httpClient.post("/movies", movie);
   }
+
+  updateMovie(id: string, movie: any) {
+    return this.httpClient.put(`/movies/${id}`, movie);
+  }
 }
 
 export default new MoviesServices();

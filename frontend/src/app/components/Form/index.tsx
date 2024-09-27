@@ -25,8 +25,6 @@ const initialFormData: Movie = {
 export const MovieForm = forwardRef<MovieFormRef, MovieFormProps>(
   ({ buttonLabel, onSubmit }, ref) => {
     const [formData, setFormData] = useState<Movie>(initialFormData);
-
-    const [isFormValid, setIsFormValid] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
 
     useImperativeHandle(ref, () => ({
@@ -37,10 +35,6 @@ export const MovieForm = forwardRef<MovieFormRef, MovieFormProps>(
       },
     }), []);
 
-    const clearForm = () => {
-      setFormData(initialFormData);
-    };
-
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const {
         name, value, type, checked,
@@ -50,10 +44,6 @@ export const MovieForm = forwardRef<MovieFormRef, MovieFormProps>(
         ...prevState,
         [name]: type === "checkbox" ? checked : value,
       }));
-
-      if (name === "title") {
-        setIsFormValid(value.trim() !== "");
-      }
     };
 
     const handleSubmit = async (
@@ -68,7 +58,6 @@ export const MovieForm = forwardRef<MovieFormRef, MovieFormProps>(
         /* empty */
       } finally {
         setIsLoading(false);
-        clearForm();
       }
     };
 
@@ -225,7 +214,6 @@ export const MovieForm = forwardRef<MovieFormRef, MovieFormProps>(
           <ButtonContainer>
             <Button
               type="submit"
-              disabled={!isFormValid}
               isLoading={isLoading}
             >
               {buttonLabel}

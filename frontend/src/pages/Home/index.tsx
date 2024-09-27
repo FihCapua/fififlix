@@ -33,7 +33,7 @@ import { MovieProps } from "../../types";
 export default function Home() {
   const history = useHistory();
 
-  const handleNavigateMovie = (movie?: Movie) => {
+  const handleNavigateMovie = (movie?: MovieProps) => {
     const route = movie ? `edit-movie/${movie.id}` : "new-movie";
     history.push(route);
     window.location.reload();

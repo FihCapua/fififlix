@@ -17,6 +17,10 @@ class HttpCLient {
     return this.makeRequest(path, { method: "POST", body });
   }
 
+  put(path: string, body: any) {
+    return this.makeRequest(path, { method: "PUT", body });
+  }
+
   async makeRequest(path: string, options: any = {}) {
     const headers = new Headers();
     if (options.body) {
