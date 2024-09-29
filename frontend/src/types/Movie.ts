@@ -41,4 +41,5 @@ export type MovieFormProps = {
 export type MovieFormRef = {
     // eslint-disable-next-line no-unused-vars
     setFieldsValue: (movie: Movie) => void;
+    resetFields: () => void;
 }

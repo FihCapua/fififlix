@@ -33,6 +33,10 @@ export const MovieForm = forwardRef<MovieFormRef, MovieFormProps>(
           ...movie,
         });
       },
+
+      resetFields() {
+        setFormData(initialFormData);
+      },
     }), []);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
