@@ -26,6 +26,7 @@ import magnifyGlass from "../../assets/images/magn-glass.svg";
 
 import { Loader } from "../../app/components/Loader";
 import { Button } from "../../app/components/Button";
+import { Modal } from "../../app/components/Modal";
 
 import MoviesServices from "../../services/MoviesServices";
 import { MovieProps } from "../../types";
@@ -74,6 +75,8 @@ export default function Home() {
   return (
     <>
       <Loader isLoading={isLoading} fullScreen size="32px" />
+
+      <Modal title="teste" description="testando teste da silva" danger cancelLabel="Cancelar" confirmLabel="Deletar" onCancel={() => console.log("cancelou")} onConfirm={() => console.log("deletou")} />
 
       {movies.length > 0 && (
         <InputSearchContainer>

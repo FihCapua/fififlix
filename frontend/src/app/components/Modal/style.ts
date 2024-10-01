@@ -48,13 +48,19 @@ export const FooterModal = styled.footer`
     .cancel-btn {
         padding: 10px;
         background: transparent;
-        border: none;
+        border: 1px solid ${({ theme }) => theme.colors.secondary.main};
         font-size: 12px;
-        margin-right: 8px;
-        color: ${({ theme }) => theme.colors.backgroundColor};
+        margin: 0 15px 0 0;
+        color: ${({ theme }) => theme.colors.secondary.main};
+
+        &:hover {
+            background-color: ${({ theme }) => theme.colors.secondary.main};
+            color: ${({ theme }) => theme.colors.white};
+        }
     }
 
     .delete-btn {
         margin: 0;
+        border: none;
     }
 `;

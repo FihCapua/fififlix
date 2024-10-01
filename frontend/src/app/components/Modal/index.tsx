@@ -3,7 +3,15 @@ import ReactDOM from "react-dom";
 import { Button } from "../Button";
 import { Container, FooterModal, Overlay } from "./style";
 
-export function Modal({ title, description, danger }: { title: string, description: string, danger?: boolean }) {
+export function Modal({
+  title,
+  description,
+  danger,
+  cancelLabel,
+  confirmLabel,
+  onCancel,
+  onConfirm,
+}: { title: string, description: string, danger?: boolean, cancelLabel?: string, confirmLabel?: string, onCancel?: () => void, onConfirm?: () => void }) {
   return ReactDOM.createPortal(
     <Overlay>
       <Container danger={danger}>
@@ -12,9 +20,9 @@ export function Modal({ title, description, danger }: { title: string, descripti
         <p>{description}</p>
 
         <FooterModal>
-          <Button type="button" className="cancel-btn">Cancelar</Button>
+          <Button type="button" className="cancel-btn" onClick={onCancel}>{cancelLabel}</Button>
 
-          <Button type="button" className="delete-btn" danger={danger}>Deletar</Button>
+          <Button type="button" className="delete-btn" danger={danger} onClick={onConfirm}>{confirmLabel}</Button>
         </FooterModal>
       </Container>
     </Overlay>,
