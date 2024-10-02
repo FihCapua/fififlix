@@ -44,6 +44,8 @@ export default function Home() {
   const [searchTerm, setSearchTerm] = useState("");
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
+  const [movieBeingDeleted, setMovieBeingDeleted] = useState<MovieProps | null>(null);
 
   const loadMovies = useCallback(async () => {
     try {
@@ -72,11 +74,20 @@ export default function Home() {
 
   const handleTryAgain = () => loadMovies();
 
+  const handleDeleteMovie = (movie: MovieProps) => {
+    setMovieBeingDeleted(movie);
+    setIsDeleteModalVisible(true);
+  };
+
+  const handleCloseDeleteModal = () => setIsDeleteModalVisible(false);
+
+  const handleConfirmDeleteMovie = () => console.log(movieBeingDeleted.id);
+
   return (
     <>
       <Loader isLoading={isLoading} fullScreen size="32px" />
 
-      <Modal title="teste" description="testando teste da silva" danger cancelLabel="Cancelar" confirmLabel="Deletar" onCancel={() => console.log("cancelou")} onConfirm={() => console.log("deletou")} />
+      <Modal title={`Você tem certeza que deseja remover o filme ${movieBeingDeleted?.title}?`} description="Essa ação não poderá ser desfeita" danger visible={isDeleteModalVisible} cancelLabel="Cancelar" confirmLabel="Deletar" onCancel={handleCloseDeleteModal} onConfirm={handleConfirmDeleteMovie} />
 
       {movies.length > 0 && (
         <InputSearchContainer>
@@ -197,7 +208,7 @@ export default function Home() {
                             <img src={edit} alt="editar" />
                           </Link>
 
-                          <button type="button">
+                          <button type="button" onClick={() => handleDeleteMovie(movie)}>
                             <img src={trash} alt="excluir" />
                           </button>
                         </HoldMovies>
