@@ -81,7 +81,7 @@ export default function Home() {
 
   const handleCloseDeleteModal = () => setIsDeleteModalVisible(false);
 
-  const handleConfirmDeleteMovie = () => console.log(movieBeingDeleted.id);
+  const handleConfirmDeleteMovie = () => console.log(movieBeingDeleted?.id);
 
   return (
     <>
@@ -197,12 +197,6 @@ export default function Home() {
                         <StarRating>
                           <span>Classificação: </span> &nbsp;  &nbsp; {starRating(movie.stars)}
                         </StarRating>
-                        <MovieComments>
-                          &quot;
-                          <span>{movie.comments}</span>
-                          &quot;
-                        </MovieComments>
-
                         <HoldMovies>
                           <Link to={`/edit-movie/${movie.id}`} onClick={() => handleNavigateMovie(movie)}>
                             <img src={edit} alt="editar" />
@@ -212,6 +206,11 @@ export default function Home() {
                             <img src={trash} alt="excluir" />
                           </button>
                         </HoldMovies>
+                        <MovieComments>
+                          &quot;
+                          <span>{movie.comments}</span>
+                          &quot;
+                        </MovieComments>
                       </CarouselCard>
                     </CarouselCardContainer>
                   ))}

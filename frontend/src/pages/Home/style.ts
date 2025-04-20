@@ -189,7 +189,7 @@ export const StarRating = styled.div`
 
 export const MovieComments = styled.div`
     margin: 15px 10px;
-    height: 15vh;
+    height: auto;
 
     span {
         font-family: 11px;
@@ -198,12 +198,10 @@ export const MovieComments = styled.div`
 `;
 
 export const HoldMovies = styled.div`
-    display: block;
+    display: flex;
     width: 100px;
-    height: 5vh;
-    position: relative;
-    top: 55px;
-    left: 80%;
+    flex-direction: row;
+    margin: 15px 0 0 15px;
 
     img {
         width: 20px;
