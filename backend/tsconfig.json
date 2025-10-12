@@ -38,9 +38,9 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    // "verbatimModuleSyntax": true, // Commented out for compatibility with CommonJS
     "isolatedModules": true,
-    "noUncheckedSideEffectImports": true,
+    // "noUncheckedSideEffectImports": true, // Commented out for compatibility
     "moduleDetection": "force",
     "skipLibCheck": true,
   }
